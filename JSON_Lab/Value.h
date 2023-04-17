@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <list>
+#include <stack>
 
 using namespace std;
 
@@ -35,10 +36,10 @@ class ListValue {
   string get_Val();
 };
 
-struct Link {
-  ListValue val;
-  Link* next;
-  Link(ListValue _val, Link* _next = nullptr) : val(_val), next(_next) {}
-};
+//struct Link {
+//  ListValue val;
+//  Link* next;
+//  Link(ListValue _val, Link* _next = nullptr) : val(_val), next(_next) {}
+//};
 
 

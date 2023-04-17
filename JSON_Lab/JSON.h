@@ -5,13 +5,12 @@
 class JSon {
 public:
   ListValue* root;
-  //JSon(ListValue* _root) : root(_root) {}
+  stack<ListValue*>stack_js;
   void load(string filename);
-  void save(string filename);
-  string check_list(ListValue* curr, string str, stack<ListValue*> stack);
-  /*void next();
+  void save(string filename, JSon json);
+  string check_list(JSon curr, stack<ListValue*> stack, ListValue* end);
+  void next();
   void down();
-  void back();*/
-  //friend istream& operator>>(istream& in, ListValue& listvalue);
-  //friend ostream& operator<<(ostream& out, ListValue& listvalue);
+  void back();
+  ListValue* get_root();
 };
