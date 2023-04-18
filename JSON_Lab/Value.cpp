@@ -14,9 +14,6 @@ string ListValue::get_Val() {
   return value;
 }
 
-Type ListValue::getType() {
-  return type;
-}
 
 //istream& operator>>(istream& in, ListValue& list)
 //{
