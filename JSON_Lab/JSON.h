@@ -8,7 +8,7 @@ public:
   stack<ListValue*>stack_js;
   void load(string filename);
   void save(string filename, JSon json);
-  string check_list(JSon curr, stack<ListValue*> stack, ListValue* end);
+  string check_list(JSon curr);
   void next();
   void down();
   void back();

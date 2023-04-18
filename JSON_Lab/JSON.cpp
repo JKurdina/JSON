@@ -86,40 +86,45 @@ void JSon::save(string filename, JSon json)
   ListValue* end = json.get_root()->list.back();
   string str = "";
 
-  str = check_list(json, stack, end);
-  file2 << str;
+  str = check_list(json);
+  bool flag = true;
 
-  /*while (!stack.empty())
+  string new_str = "";
+  int i = 0;
+  /*while (i != str.size() - 2)
   {
-    ListValue* new_elem = stack.top();
-    stack.pop();
-
-    if (new_elem->get_key() == "0")
+    if (str[i] == '}')
     {
-      continue;
+      if (str[i + 1] == ',' || str[i + 1] == '}')
+      {
+        new_str += str[i];
+        continue;
+      }
+      else
+      {
+        i++;
+      }
     }
-    else if (new_elem->get_key() == "")
-    {
-
-    }
-    else
-    {
-      str += "'" + new_elem->get_key() + "'";
-      str += ":";
-      str += "'" + new_elem->get_Val() + "'";
-    }
+    new_str += str[i];
+    i++;
   }*/
+
+
+
+
+  file2 << str;
 };
 
-string JSon::check_list(JSon json, stack<ListValue*>stack_1, ListValue* end)
+string JSon::check_list(JSon json)
 {
   ListValue* curr = json.get_root();
   stack<ListValue*> stack;
   string str = "";
-  int count = 0;
-  while (count != 2)
+
+  bool flag = false;
+  while (!flag)
   {
-    if (curr->get_key() == "0") count++;
+
     try
     {
       ListValue* new_elem = json.get_root();
@@ -130,7 +135,7 @@ string JSon::check_list(JSon json, stack<ListValue*>stack_1, ListValue* end)
       //stack.push(json.get_root());
       curr = json.get_root();
     }
-    catch(...)
+    catch (...)
     {
       try
       {
@@ -148,50 +153,51 @@ string JSon::check_list(JSon json, stack<ListValue*>stack_1, ListValue* end)
         json.back();
         json.get_root()->list.clear();
         curr = json.get_root();
+        if (curr->get_key() == "0") flag = true;
       }
     }
   }
   //stack.push(end);
   return str;
-  
-  /*if (curr == end)
-  {
+}
+/*if (curr == end)
+{
 
-  }
+}
+try
+{
+  stack.push(json.get_root());
+  json.down();
+  check_list(json, stack, end);
+}
+catch (...)
+{
+  stack.push(json.get_root());
   try
   {
     stack.push(json.get_root());
-    json.down();
+    json.next();
     check_list(json, stack, end);
   }
   catch (...)
   {
-    stack.push(json.get_root());
+    json.back();
     try
     {
-      stack.push(json.get_root());
       json.next();
       check_list(json, stack, end);
     }
     catch (...)
     {
       json.back();
-      try
-      {
-        json.next();
-        check_list(json, stack, end);
-      }
-      catch (...)
-      {
-        json.back();
-        check_list(json, stack, end);
-      }
+      check_list(json, stack, end);
     }
-  }*/
+  }
+}*/
 
 
-  
-}
+
+
 
 
 /*if (curr->list.size() == 0)
