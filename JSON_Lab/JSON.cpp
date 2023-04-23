@@ -1,4 +1,5 @@
 #include "JSON.h"
+#include "Value.h"
 
 #include <sstream>
 #include <fstream>
@@ -7,6 +8,11 @@
 ListValue* JSon::get_root()
 {
   return root;
+}
+
+ListValue* JSon::get_current()
+{
+  return current;
 }
 
 void JSon::load(string filename)
@@ -30,7 +36,7 @@ void JSon::load(string filename)
       stack.push(curr);
 
       new_list = new ListValue();
-      curr->list.push_back(new_list);
+      curr->list.addLast(new_list);
       curr = curr->list.back();
       state = 0;
       break;
@@ -62,7 +68,7 @@ void JSon::load(string filename)
       tmp = "";
       curr = stack.top();
       new_list = new ListValue();
-      curr->list.push_back(new_list);
+      curr->list.addLast(new_list);
       curr = curr->list.back();
       break;
 
@@ -75,12 +81,14 @@ void JSon::load(string filename)
   }
 
   root = curr;
+  current = curr;
 }
 void JSon::save(string filename, JSon json)
 {
   ofstream file2(filename);
 
   string str;
+
 
   str = check_list(json);
   bool flag = true;
@@ -110,40 +118,43 @@ void JSon::save(string filename, JSon json)
 
 string JSon::check_list(JSon json)
 {
-  ListValue* curr = json.get_root();
+  JSon new_json = json;
+  new_json.current = new_json.get_root();
+  while (!new_json.stack_curr.empty()) 
+    new_json.stack_curr.pop();
+  while (!new_json.stack_js.empty()) 
+    new_json.stack_js.pop();
+
+  ListValue* curr = new ListValue();
   string str = "";
 
-  bool flag = false;
-  while (!flag)
+  //bool flag = false;
+  while (curr != new_json.get_root())
   {
 
     try
     {
-      ListValue* new_elem = json.get_root();
-      json.down();
-      str += "'" + new_elem->get_key() + "'";
+      new_json.down();
+      str += "'" + new_json.get_current()->get_key() + "'";
       str += ":";
-      str += "{";
-      curr = json.get_root();
+      curr = new_json.get_current();
     }
     catch (...)
     {
       try
       {
-        str += "'" + json.get_root()->get_key() + "'";
-        str += ":";
-        str += "'" + json.get_root()->get_Val() + "'";
-        json.next();
-        curr = json.get_root();
+        str += "'" + new_json.get_current()->get_Val() + "'";
+        new_json.next();
         str += ",";
+        str += "'" + new_json.get_current()->get_key() + "'";
+        curr = new_json.get_current();
       }
       catch (...)
       {
         str += "}";
-        json.back();
-        json.get_root()->list.clear();
-        curr = json.get_root();
-        if (curr->get_key() == "0") flag = true;
+        new_json.back();
+        new_json.get_current()->list.clear();
+        curr = new_json.get_current();
       }
     }
   }
@@ -153,7 +164,20 @@ string JSon::check_list(JSon json)
   
 void JSon::next()
 {
-  stack<ListValue*>stack_list;
+  /*ListValue* curr_up = stack_js.top();
+  IterVal i = curr_up->list.getItr();*/
+  IterVal i = stack_curr.top();
+  if (i.hasNext())
+  {
+    current = i.next();
+    stack_curr.push(i);
+  }
+  else
+  {
+    throw "The end of list";
+  }
+  
+  /*stack<ListValue*>stack_list;
   ListValue* elem = root;
   root = stack_js.top();
   if (elem != root->list.back())
@@ -178,14 +202,23 @@ void JSon::next()
   else
   {
     throw "The end of list";
-  }
+  }*/
 };
 void JSon::down()
 {
-  if (root->list.size() != 0)
-  {
-    stack_js.push(root);
-    root = root->list.front();
+  if (!current->list.size() == 0) {
+    IterVal i = current->list.getItr();
+    if (!stack_curr.empty())
+    {
+      i = stack_curr.top();
+    }
+
+    if (i.hasNext())
+    {
+      stack_js.push(current);
+      current = i.next();
+      stack_curr.push(i);
+    }
   }
   else
   {
@@ -197,8 +230,9 @@ void JSon::back()
 {
   if (!stack_js.empty())
   {
-    root = stack_js.top();
+    current = stack_js.top();
     stack_js.pop();
+    stack_curr.pop();
   }
   else
   {
@@ -206,3 +240,11 @@ void JSon::back()
   }
 
 };
+
+//void JSon::prev()
+//{
+//  if (!stack_curr.empty())
+//  {
+//    
+//  }
+//}
