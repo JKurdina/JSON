@@ -70,19 +70,6 @@ public:
 
 struct Link;
 class List;
-class ListValue {
-public: 
-  string key;
-  string value;
-  stack<ListValue*> stack;
-  List list;
-  //list<ListValue*> list;
-  ListValue();
-  //IterVal* itr() { return; };
-  string get_key();
-  string get_Val();
-};
-
 class IterVal {
   Link* curr;
   Link* head;
@@ -91,5 +78,19 @@ public:
   bool hasNext();
   ListValue* next();
 };
+
+class ListValue {
+public: 
+  string key;
+  string value;
+  stack<IterVal> stack_curr;
+  List list;
+  //list<ListValue*> list;
+  ListValue();
+  //IterVal* itr() { return; };
+  string get_key();
+  string get_Val();
+};
+
 
 

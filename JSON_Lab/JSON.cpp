@@ -5,6 +5,218 @@
 #include <fstream>
 #include <stack>
 
+JSon::JSon()
+{
+  root = nullptr;
+  current = nullptr;
+}
+
+//JSon::JSon(const JSon& json)
+//{
+//  this->root = new ListValue();
+//  this->current = root;
+//
+//
+//  ListValue* curr = new ListValue();
+//  bool flag = true;
+//
+//  JSon new_json;
+//  new_json = json;
+//
+//
+//  stack<ListValue*>st;
+//  ListValue* tmp;
+//  while (curr != json.root)
+//  {
+//    try
+//    {
+//      if (flag)
+//      {
+//        while (!new_json.current->stack_curr.empty())
+//          new_json.current->stack_curr.pop();
+//
+//        new_json.down();
+//        tmp = new ListValue();
+//
+//        tmp->key = new_json.current->get_key();
+//        tmp->value = new_json.current->get_Val();
+//
+//        this->current->list.addLast(tmp);
+//        st.push(this->current);
+//        this->current = tmp;
+//        curr = new_json.get_current();
+//      }
+//      else throw - 1;
+//
+//    }
+//
+//    catch (...)
+//    {
+//      try
+//      {
+//        new_json.next();
+//
+//        tmp = new ListValue();
+//        tmp->key = new_json.current->get_key();
+//        tmp->value = new_json.current->get_Val();
+//
+//        this->current = st.top();
+//        this->current->list.addLast(tmp);
+//
+//        this->current = tmp;
+//        curr = new_json.get_current();
+//        flag = true;
+//      }
+//      catch (...)
+//      {
+//        new_json.back();
+//        flag = false;
+//        this->current = st.top();
+//        st.pop();
+//        curr = new_json.get_current();
+//      }
+//    }
+//  }
+//}
+
+//JSon& JSon::operator=(const JSon& json)
+//{
+//  ListValue* curr = new ListValue();
+// /* while (curr != root)
+//  {
+//    try
+//    {
+//      down();
+//      curr = current;
+//    }
+//    catch (...)
+//    {
+//      try
+//      {
+//        next();
+//        curr = current;
+//      }
+//      catch (...)
+//      {
+//        while (!current->stack_curr.empty())
+//          current->stack_curr.pop();
+//        delete current;
+//        back();
+//        curr = current;
+//      }
+//    }
+//  }
+//  while (!current->stack_curr.empty())
+//    current->stack_curr.pop();
+//  delete current;
+//  delete root;*/
+//  ///
+//  this->root = new ListValue();
+//  this->current = root;
+//  /* while (!current->stack_curr.empty())
+//     current->stack_curr.pop();*/
+//
+//  //ListValue* curr = new ListValue();
+//  bool flag = true;
+//
+//  JSon new_json;
+//  new_json.root = json.root;
+//  new_json.current = new_json.root;
+//
+//  this->root->key = new_json.current->get_key();
+//  this->root->value = new_json.current->get_Val();
+//
+//
+//  stack<ListValue*>st;
+//  ListValue* tmp;
+//  while (curr != json.root)
+//  {
+//    try
+//    {
+//      if (flag)
+//      {
+//        while (!new_json.current->stack_curr.empty())
+//          new_json.current->stack_curr.pop();
+//
+//        new_json.down();
+//        tmp = new ListValue();
+//
+//        tmp->key = new_json.current->get_key();
+//        tmp->value = new_json.current->get_Val();
+//
+//        this->current->list.addLast(tmp);
+//        st.push(this->current);
+//        this->current = tmp;
+//        curr = new_json.get_current();
+//      }
+//      else throw - 1;
+//
+//    }
+//
+//    catch (...)
+//    {
+//      try
+//      {
+//        new_json.next();
+//
+//        tmp = new ListValue();
+//        tmp->key = new_json.current->get_key();
+//        tmp->value = new_json.current->get_Val();
+//
+//        this->current = st.top();
+//        this->current->list.addLast(tmp);
+//
+//        this->current = tmp;
+//        curr = new_json.get_current();
+//        flag = true;
+//      }
+//      catch (...)
+//      {
+//        new_json.back();
+//        flag = false;
+//        this->current = st.top();
+//        st.pop();
+//        curr = new_json.get_current();
+//      }
+//    }
+//  }
+//
+//  return *this;
+//}
+//
+//JSon::~JSon()
+//{
+//  ListValue* curr = new ListValue();
+//  while (curr != root)
+//  {
+//    try
+//    {
+//      down();
+//      curr = current;
+//    }
+//    catch (...)
+//    {
+//      try
+//      {
+//        next();
+//        curr = current;
+//      }
+//      catch (...)
+//      {
+//        while (!current->stack_curr.empty())
+//          current->stack_curr.pop();
+//        delete current;
+//        back();
+//        curr = current;
+//      }
+//    }
+//  }
+//  while (!current->stack_curr.empty())
+//    current->stack_curr.pop();
+//  delete current;
+//  delete root;
+//}
+
 ListValue* JSon::get_root()
 {
   return root;
@@ -83,22 +295,29 @@ void JSon::load(string filename)
   root = curr;
   current = curr;
 }
-void JSon::save(string filename, JSon json)
+void JSon::save(string filename)
 {
   ofstream file2(filename);
 
   string str;
 
+  /* JSon new_json;
+   new_json.root = json.get_root();
 
-  str = check_list(json);
-  bool flag = true;
+   new_json.current = new_json.get_root();
+
+   while (!new_json.current->stack_curr.empty())
+     new_json.current->stack_curr.pop();*/
+
+  
+  /*bool flag = true;
 
   string new_str = "";
   int i = 4;
 
   while (i != str.size())
   {
-    
+
     if (str[i] == 39)
     {
       if (str[i - 1] == '}') {
@@ -111,19 +330,21 @@ void JSon::save(string filename, JSon json)
       new_str += str[i];
     }
     i++;
-  }
+  }*/
 
-  file2 << new_str;
+  file2 << str;
 };
 
-string JSon::check_list(JSon json)
+string JSon::check_list(JSon new_json)
 {
-  JSon new_json = json;
+  /*JSon new_json;
+  new_json.root = json.get_root();
+
   new_json.current = new_json.get_root();
-  while (!new_json.stack_curr.empty()) 
-    new_json.stack_curr.pop();
-  while (!new_json.stack_js.empty()) 
-    new_json.stack_js.pop();
+
+  while (!new_json.current->stack_curr.empty())
+    new_json.current->stack_curr.pop();*/
+
 
   ListValue* curr = new ListValue();
   string str = "";
@@ -135,6 +356,7 @@ string JSon::check_list(JSon json)
     try
     {
       new_json.down();
+      str += "{";
       str += "'" + new_json.get_current()->get_key() + "'";
       str += ":";
       curr = new_json.get_current();
@@ -143,10 +365,12 @@ string JSon::check_list(JSon json)
     {
       try
       {
-        str += "'" + new_json.get_current()->get_Val() + "'";
+        if (new_json.get_current()->get_Val() != "")
+          str += "'" + new_json.get_current()->get_Val() + "'";
         new_json.next();
         str += ",";
         str += "'" + new_json.get_current()->get_key() + "'";
+        str += ":";
         curr = new_json.get_current();
       }
       catch (...)
@@ -161,64 +385,43 @@ string JSon::check_list(JSon json)
   return str;
 }
 
-  
+
 void JSon::next()
 {
-  /*ListValue* curr_up = stack_js.top();
-  IterVal i = curr_up->list.getItr();*/
-  IterVal i = stack_curr.top();
-  if (i.hasNext())
+  ListValue* old_curr = stack_js.top();
+  /**IterVal i = curr_up->list.getItr(); */
+  IterVal i = old_curr->stack_curr.top();
+
+  if (current != old_curr->list.back())
   {
     current = i.next();
-    stack_curr.push(i);
+    old_curr->stack_curr.push(i);
+    if(current != old_curr->list.back())
+      current = i.next();
+
   }
   else
   {
     throw "The end of list";
   }
-  
-  /*stack<ListValue*>stack_list;
-  ListValue* elem = root;
-  root = stack_js.top();
-  if (elem != root->list.back())
-  {
-    while (root->list.front() != elem)
-    {
-      stack_list.push(root->list.front());
-      root->list.pop_front();
 
-    }
-    stack_list.push(root->list.front());
-    root->list.pop_front();
-    ListValue* new_root = root->list.front();
-
-    while (!stack_list.empty())
-    {
-      root->list.push_front(stack_list.top());
-      stack_list.pop();
-    }
-    root = new_root;
-  }
-  else
-  {
-    throw "The end of list";
-  }*/
 };
 void JSon::down()
 {
-  if (!current->list.size() == 0) {
+  if (current->list.size() != 0) {
     IterVal i = current->list.getItr();
-    if (!stack_curr.empty())
+    if (!current->stack_curr.empty())
     {
-      i = stack_curr.top();
+      i = current->stack_curr.top();
     }
 
-    if (i.hasNext())
-    {
-      stack_js.push(current);
-      current = i.next();
-      stack_curr.push(i);
-    }
+    /*if (i.hasNext())
+    {*/
+    stack_js.push(current);
+    ListValue* old_curr = current;
+    old_curr->stack_curr.push(i);
+    current = i.next();
+    /*}*/
   }
   else
   {
@@ -232,7 +435,6 @@ void JSon::back()
   {
     current = stack_js.top();
     stack_js.pop();
-    stack_curr.pop();
   }
   else
   {

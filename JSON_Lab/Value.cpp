@@ -15,6 +15,8 @@ string ListValue::get_Val() {
   return value;
 }
 
+
+
 IterVal::IterVal(Link* head)
 {
   curr = head->next;

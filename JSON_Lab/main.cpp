@@ -5,10 +5,10 @@
 int main() {
   JSon json;
   json.load("JSON_load.txt");
-  json.down();
-  json.next();
-  json.back();
-  json.down();
-  json.save("JSON_save.txt", json);
+  //json.down();
+  //json.next();
+  json.save("JSON_save.txt");
+  //json.next();
   return 0;
 }
+

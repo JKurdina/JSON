@@ -8,8 +8,12 @@ public:
   stack<ListValue*>stack_js;
   ListValue* current;
   //stack<IterVal>stack_curr;
+  JSon();
+  //JSon(const JSon& json);
+  //JSon& operator=(const JSon& json);
+  //~JSon();
   void load(string filename);
-  void save(string filename, JSon json);
+  void save(string filename);
   string check_list(JSon curr);
   void next();
   void down();

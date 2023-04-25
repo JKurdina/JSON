@@ -1,3 +1,3 @@
-﻿  JSON.cpp
+﻿  main.cpp
 C:\Users\kurdi\Desktop\JSON\JSON_Lab\JSON.h(2,10): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
   JSON_Lab.vcxproj -> C:\Users\kurdi\Desktop\JSON\x64\Debug\JSON_Lab.exe
