@@ -13,11 +13,12 @@ public:
   //~JSon();
   void load(string filename);
   void save(string filename);
-  string check_list(ListValue* curr);
+  string check_list(ListValue* curr, int level);
   void next();
   void down();
   void back();
   void prev();
   ListValue* get_root();
   ListValue* get_current();
+  string print_str(string str);
 };

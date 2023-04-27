@@ -4,6 +4,7 @@
 #include <sstream>
 #include <fstream>
 #include <stack>
+#include <string>
 
 JSon::JSon()
 {
@@ -231,7 +232,7 @@ void JSon::load(string filename)
 {
   string str;
   ifstream file_1(filename);
-  file_1 >> str;
+  //file_1 >> str;
 
   int state = 0;
 
@@ -239,56 +240,68 @@ void JSon::load(string filename)
   ListValue* curr = new ListValue();
   string tmp = "";
   ListValue* new_list;
-  for (int i = 0; i < str.size(); i++)
+
+
+  
+  while (getline(file_1, str))
   {
-    char c = str[i];
 
-    switch (c) {
-    case '{':
-      stack.push(curr);
 
-      new_list = new ListValue();
-      curr->list.addLast(new_list);
-      curr = curr->list.back();
-      state = 0;
-      break;
+    for (int i = 0; i < str.size(); i++)
+    {
+      char c = str[i];
 
-    case '}':
-      curr->value = tmp;
-      tmp = "";
-      curr = stack.top();
-      stack.pop();
-      break;
+      switch (c) {
+      case '{':
+        stack.push(curr);
 
-    case ':':
-      if (state == 0)
-      {
-        curr->key = tmp;
+        new_list = new ListValue();
+        curr->list.addLast(new_list);
+        curr = curr->list.back();
+        state = 0;
+        break;
 
-      }
-      state = 1; //теперь записываем значение
-
-      tmp = "";
-      break;
-
-    case ',':
-      if (state == 1)
-      {
+      case '}':
         curr->value = tmp;
-      }
-      state = 0;
-      tmp = "";
-      curr = stack.top();
-      new_list = new ListValue();
-      curr->list.addLast(new_list);
-      curr = curr->list.back();
-      break;
+        tmp = "";
+        curr = stack.top();
+        stack.pop();
+        break;
 
-    case 39:
-      break;
-    default:
-      tmp += c;
-      break;
+      case ':':
+        if (state == 0)
+        {
+          curr->key = tmp;
+
+        }
+        state = 1; //теперь записываем значение
+
+        tmp = "";
+        break;
+
+      case ',':
+        if (state == 1)
+        {
+          curr->value = tmp;
+        }
+        state = 0;
+        tmp = "";
+        curr = stack.top();
+        new_list = new ListValue();
+        curr->list.addLast(new_list);
+        curr = curr->list.back();
+        break;
+
+      case 39:
+        break;
+      case '\t':
+        break;
+      case ' ':
+        break;
+      default:
+        tmp += c;
+        break;
+      }
     }
   }
 
@@ -301,13 +314,17 @@ void JSon::save(string filename)
   ListValue* curr;
 
   string str;
+  int level = 0;
   curr = get_root();
-  str = check_list(curr);
+  str = check_list(curr,level);
+
+  string new_str;
+  //new_str = print_str(str);
 
   file2 << str;
 };
 
-string JSon::check_list(ListValue* curr)
+string JSon::check_list(ListValue* curr, int level)
 {
   string str = "";
   if (curr->list.size() == 0)
@@ -321,20 +338,52 @@ string JSon::check_list(ListValue* curr)
   {
     if(curr->get_key() != "0") 
       str += "'" + curr->get_key() + "'" + ":";
+    level++;
+    int j = 0;
     str += "{";
+    str += "\r";
+    while (j < level)
+    {
+      str += '\t';
+      j++;
+    }
   }
 
   IterVal tmp = curr->list.getItr();
   while (tmp.hasNext())
   {
-    str += check_list(tmp.next());
+    str += check_list(tmp.next(),level);
     if(tmp.hasNext())
       str += ",";
+    int j = 0;
+    str += "\r";
+    while (j < level)
+    {
+      str += '\t';
+      j++;
+    }
   }
-
   str += "}";
   
   return str;
+}
+
+string JSon::print_str(string str)
+{
+  string new_str;
+
+  for (int i = 0; i < str.size(); i++)
+  {
+    char c = str[i];
+
+    /*switch (c)
+    {
+
+    }*/
+
+  }
+
+  return new_str;
 }
 
 
@@ -394,14 +443,18 @@ void JSon::back()
 void JSon::prev()
 {
   ListValue* old_curr = stack_js.top();
-  IterVal i = old_curr->stack_curr.top();
+  
 
-  if(current != old_curr->list.front())
+  if (current != old_curr->list.front())
   {
+    IterVal i = old_curr->stack_curr.top();
+    old_curr->stack_curr.pop();
+    i = old_curr->stack_curr.top();
+
     current = i.next();
   }
   else
   {
     throw "The begin of list";
   }
-}
+};
