@@ -298,90 +298,42 @@ void JSon::load(string filename)
 void JSon::save(string filename)
 {
   ofstream file2(filename);
+  ListValue* curr;
 
   string str;
-
-  /* JSon new_json;
-   new_json.root = json.get_root();
-
-   new_json.current = new_json.get_root();
-
-   while (!new_json.current->stack_curr.empty())
-     new_json.current->stack_curr.pop();*/
-
-  
-  /*bool flag = true;
-
-  string new_str = "";
-  int i = 4;
-
-  while (i != str.size())
-  {
-
-    if (str[i] == 39)
-    {
-      if (str[i - 1] == '}') {
-        flag = false;
-      }
-    }
-    if (str[i] == ',' || str[i] == '}') flag = true;
-    if (flag == true)
-    {
-      new_str += str[i];
-    }
-    i++;
-  }*/
+  curr = get_root();
+  str = check_list(curr);
 
   file2 << str;
 };
 
-string JSon::check_list(JSon new_json)
+string JSon::check_list(ListValue* curr)
 {
-  /*JSon new_json;
-  new_json.root = json.get_root();
-
-  new_json.current = new_json.get_root();
-
-  while (!new_json.current->stack_curr.empty())
-    new_json.current->stack_curr.pop();*/
-
-
-  ListValue* curr = new ListValue();
   string str = "";
-
-  //bool flag = false;
-  while (curr != new_json.get_root())
+  if (curr->list.size() == 0)
   {
-
-    try
-    {
-      new_json.down();
-      str += "{";
-      str += "'" + new_json.get_current()->get_key() + "'";
-      str += ":";
-      curr = new_json.get_current();
-    }
-    catch (...)
-    {
-      try
-      {
-        if (new_json.get_current()->get_Val() != "")
-          str += "'" + new_json.get_current()->get_Val() + "'";
-        new_json.next();
-        str += ",";
-        str += "'" + new_json.get_current()->get_key() + "'";
-        str += ":";
-        curr = new_json.get_current();
-      }
-      catch (...)
-      {
-        str += "}";
-        new_json.back();
-        new_json.get_current()->list.clear();
-        curr = new_json.get_current();
-      }
-    }
+    str += "'" + curr->get_key() + "'";
+    str += ":";
+    str += "'" + curr->get_Val() + "'";
+    return str;
   }
+  if (curr->list.size() != 0)
+  {
+    if(curr->get_key() != "0") 
+      str += "'" + curr->get_key() + "'" + ":";
+    str += "{";
+  }
+
+  IterVal tmp = curr->list.getItr();
+  while (tmp.hasNext())
+  {
+    str += check_list(tmp.next());
+    if(tmp.hasNext())
+      str += ",";
+  }
+
+  str += "}";
+  
   return str;
 }
 
@@ -389,7 +341,6 @@ string JSon::check_list(JSon new_json)
 void JSon::next()
 {
   ListValue* old_curr = stack_js.top();
-  /**IterVal i = curr_up->list.getItr(); */
   IterVal i = old_curr->stack_curr.top();
 
   if (current != old_curr->list.back())
@@ -398,7 +349,6 @@ void JSon::next()
     old_curr->stack_curr.push(i);
     if(current != old_curr->list.back())
       current = i.next();
-
   }
   else
   {
@@ -415,13 +365,11 @@ void JSon::down()
       i = current->stack_curr.top();
     }
 
-    /*if (i.hasNext())
-    {*/
     stack_js.push(current);
     ListValue* old_curr = current;
     old_curr->stack_curr.push(i);
     current = i.next();
-    /*}*/
+
   }
   else
   {
@@ -443,10 +391,17 @@ void JSon::back()
 
 };
 
-//void JSon::prev()
-//{
-//  if (!stack_curr.empty())
-//  {
-//    
-//  }
-//}
+void JSon::prev()
+{
+  ListValue* old_curr = stack_js.top();
+  IterVal i = old_curr->stack_curr.top();
+
+  if(current != old_curr->list.front())
+  {
+    current = i.next();
+  }
+  else
+  {
+    throw "The begin of list";
+  }
+}
