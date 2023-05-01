@@ -90,3 +90,23 @@ IterVal List::getItr()
 {
   return IterVal(start);
 }
+
+void List::delete_elem(ListValue* tmp)
+{
+  Link* t = start;
+  Link* t_next;
+  Link* t_prev;
+
+  while (t->next->listvalue != tmp)
+  {
+    t = t->next;
+  }
+  t_prev = t;
+  t = t->next;
+  t_next = t->next;
+
+  t_prev->next = t_next;
+
+  delete t->listvalue;
+  delete t;
+}

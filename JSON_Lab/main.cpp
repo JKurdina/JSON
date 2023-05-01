@@ -13,6 +13,17 @@ int main() {
   
   json.next();
   json.prev();*/
+  /*ListValue* curr = json.get_root();
+  ListValue* tmp = json.find_key(curr, "q", curr);*/
+
+
+  //json.save("JSON_save.txt");
+
+  json.delete_obj("a");
+  json.save("JSON_save.txt");
+  
+  
+
   return 0;
 }
 

@@ -20,7 +20,6 @@ class List
 {
   Link* start;
   Link* end;
-  Link* curr;
 public:
   List();
   List(const List& l);
@@ -31,13 +30,15 @@ public:
   void addLast(ListValue* a);
 
   void clear() {
-    Link* tmp;// = start;
+    Link* tmp;
     while (start->next != start) {
       tmp = start->next;
       start->next = tmp->next;
       delete tmp;
     }
   }
+
+  void delete_elem(ListValue* tmp);
 
   ListValue* back();
   ListValue* front();
@@ -85,11 +86,13 @@ public:
   string value;
   stack<IterVal> stack_curr;
   List list;
+  ListValue* parent;
   //list<ListValue*> list;
   ListValue();
   //IterVal* itr() { return; };
   string get_key();
   string get_Val();
+  ListValue* get_parent();
 };
 
 

@@ -242,7 +242,7 @@ void JSon::load(string filename)
   ListValue* new_list;
 
 
-  
+
   while (getline(file_1, str))
   {
 
@@ -256,6 +256,7 @@ void JSon::load(string filename)
         stack.push(curr);
 
         new_list = new ListValue();
+        new_list->parent = curr;
         curr->list.addLast(new_list);
         curr = curr->list.back();
         state = 0;
@@ -288,6 +289,7 @@ void JSon::load(string filename)
         tmp = "";
         curr = stack.top();
         new_list = new ListValue();
+        new_list->parent = curr;
         curr->list.addLast(new_list);
         curr = curr->list.back();
         break;
@@ -316,10 +318,7 @@ void JSon::save(string filename)
   string str;
   int level = 0;
   curr = get_root();
-  str = check_list(curr,level);
-
-  string new_str;
-  //new_str = print_str(str);
+  str = check_list(curr, level);
 
   file2 << str;
 };
@@ -336,7 +335,7 @@ string JSon::check_list(ListValue* curr, int level)
   }
   if (curr->list.size() != 0)
   {
-    if(curr->get_key() != "0") 
+    if (curr->get_key() != "0")
       str += "'" + curr->get_key() + "'" + ":";
     level++;
     int j = 0;
@@ -352,8 +351,8 @@ string JSon::check_list(ListValue* curr, int level)
   IterVal tmp = curr->list.getItr();
   while (tmp.hasNext())
   {
-    str += check_list(tmp.next(),level);
-    if(tmp.hasNext())
+    str += check_list(tmp.next(), level);
+    if (tmp.hasNext())
       str += ",";
     int j = 0;
     str += "\r";
@@ -364,27 +363,10 @@ string JSon::check_list(ListValue* curr, int level)
     }
   }
   str += "}";
-  
+
   return str;
 }
 
-string JSon::print_str(string str)
-{
-  string new_str;
-
-  for (int i = 0; i < str.size(); i++)
-  {
-    char c = str[i];
-
-    /*switch (c)
-    {
-
-    }*/
-
-  }
-
-  return new_str;
-}
 
 
 void JSon::next()
@@ -396,7 +378,7 @@ void JSon::next()
   {
     current = i.next();
     old_curr->stack_curr.push(i);
-    if(current != old_curr->list.back())
+    if (current != old_curr->list.back())
       current = i.next();
   }
   else
@@ -443,7 +425,7 @@ void JSon::back()
 void JSon::prev()
 {
   ListValue* old_curr = stack_js.top();
-  
+
 
   if (current != old_curr->list.front())
   {
@@ -458,3 +440,85 @@ void JSon::prev()
     throw "The begin of list";
   }
 };
+
+ListValue* JSon::find_key(ListValue* curr, string key, ListValue* find)
+{
+  if (curr->get_key() == key)
+  {
+    return curr;
+  }
+  if (curr->list.size() == 0)
+  {
+    return curr;
+  }
+
+  IterVal tmp = curr->list.getItr();
+  while (tmp.hasNext())
+  {
+    ListValue* t = find_key(tmp.next(), key, find);
+    if (t->get_key() == key)
+    {
+      find = t;
+    }
+    else
+    {
+      continue;
+    }
+  }
+  return find;
+};
+
+
+void JSon::new_value(string key, string value)
+{
+  if (key == "") throw "It is list";
+
+  ListValue* tmp = find_key(root, key, root);
+  if (tmp->get_key() == "0") throw "Does not exist this key";
+
+  tmp->value = value;
+};
+
+void JSon::delete_obj(string key)
+{
+  ListValue* tmp = find_key(root, key, root);
+  if (tmp->get_key() == "0") throw "Does not exist this key";
+
+  if (tmp->list.size() != 0)
+  {
+    delete_obj_list(tmp);
+  }
+
+  ListValue* tmp_old = tmp->get_parent();
+  tmp_old->list.delete_elem(tmp);
+
+};
+
+void JSon::delete_obj_list(ListValue* curr)
+{
+  if (curr->list.size() == 0)
+  {
+    delete curr;
+    return;
+  }
+
+  IterVal tmp = curr->list.getItr();
+  while (tmp.hasNext())
+  {
+    delete_obj_list(tmp.next());
+  }
+}
+
+
+void JSon::new_obj(string key_up, string key, string value)
+{
+  ListValue* tmp = find_key(root, key_up, root);
+  
+  ListValue* tmp_test = find_key(root, key, root);
+  if (tmp_test->get_key() != "0") throw "Object with this key already exist";
+
+  ListValue* new_tmp = new ListValue();
+  new_tmp->key = key;
+  new_tmp->value = value;
+  tmp->list.addLast(new_tmp);
+}
