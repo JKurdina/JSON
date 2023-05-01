@@ -36,5 +36,10 @@ ListValue* IterVal::next()
   return tmp;
 }
 
+ListValue* ListValue::get_parent()
+{
+  return parent;
+}
+
 
 

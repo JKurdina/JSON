@@ -20,5 +20,9 @@ public:
   void prev();
   ListValue* get_root();
   ListValue* get_current();
-  string print_str(string str);
+  ListValue* find_key(ListValue* curr, string key, ListValue* find);
+  void new_value(string key, string value);
+  void delete_obj(string key);
+  void delete_obj_list(ListValue* curr);
+  void new_obj(string key_up, string key, string value);
 };
