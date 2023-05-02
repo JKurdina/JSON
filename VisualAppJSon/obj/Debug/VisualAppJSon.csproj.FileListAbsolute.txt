@@ -1,0 +1,28 @@
+C:\Users\kurdi\Desktop\JSON\VisualAppJSon\bin\Debug\VisualAppJSon.exe.config
+C:\Users\kurdi\Desktop\JSON\VisualAppJSon\bin\Debug\VisualAppJSon.exe
+C:\Users\kurdi\Desktop\JSON\VisualAppJSon\bin\Debug\VisualAppJSon.pdb
+C:\Users\kurdi\Desktop\JSON\VisualAppJSon\bin\Debug\JSON_Lab.dll
+C:\Users\kurdi\Desktop\JSON\VisualAppJSon\bin\Debug\JSON_Lab.pdb
+C:\Users\kurdi\Desktop\JSON\VisualAppJSon\obj\Debug\VisualAppJSon.csproj.AssemblyReference.cache
+C:\Users\kurdi\Desktop\JSON\VisualAppJSon\obj\Debug\VisualAppJSon.csproj.SuggestedBindingRedirects.cache
+C:\Users\kurdi\Desktop\JSON\VisualAppJSon\obj\Debug\VisualAppJSon.Properties.Resources.resources
+C:\Users\kurdi\Desktop\JSON\VisualAppJSon\obj\Debug\VisualAppJSon.csproj.GenerateResource.cache
+C:\Users\kurdi\Desktop\JSON\VisualAppJSon\obj\Debug\VisualAppJSon.csproj.CoreCompileInputs.cache
+C:\Users\kurdi\Desktop\JSON\VisualAppJSon\obj\Debug\VisualAppJSon.csproj.CopyComplete
+C:\Users\kurdi\Desktop\JSON\VisualAppJSon\obj\Debug\VisualAppJSon.exe
+C:\Users\kurdi\Desktop\JSON\VisualAppJSon\obj\Debug\VisualAppJSon.pdb
+C:\Users\kurdi\Desktop\JSON\VisualAppJSon\obj\Debug\VisualAppJSon.Form1.resources
+C:\Users\kurdi\Desktop\Новая папка (2)\VisualAppJSon\bin\Debug\VisualAppJSon.exe.config
+C:\Users\kurdi\Desktop\Новая папка (2)\VisualAppJSon\bin\Debug\VisualAppJSon.exe
+C:\Users\kurdi\Desktop\Новая папка (2)\VisualAppJSon\bin\Debug\VisualAppJSon.pdb
+C:\Users\kurdi\Desktop\Новая папка (2)\VisualAppJSon\bin\Debug\JSON_Lab.dll
+C:\Users\kurdi\Desktop\Новая папка (2)\VisualAppJSon\bin\Debug\JSON_Lab.pdb
+C:\Users\kurdi\Desktop\Новая папка (2)\VisualAppJSon\obj\Debug\VisualAppJSon.csproj.AssemblyReference.cache
+C:\Users\kurdi\Desktop\Новая папка (2)\VisualAppJSon\obj\Debug\VisualAppJSon.csproj.SuggestedBindingRedirects.cache
+C:\Users\kurdi\Desktop\Новая папка (2)\VisualAppJSon\obj\Debug\VisualAppJSon.Form1.resources
+C:\Users\kurdi\Desktop\Новая папка (2)\VisualAppJSon\obj\Debug\VisualAppJSon.Properties.Resources.resources
+C:\Users\kurdi\Desktop\Новая папка (2)\VisualAppJSon\obj\Debug\VisualAppJSon.csproj.GenerateResource.cache
+C:\Users\kurdi\Desktop\Новая папка (2)\VisualAppJSon\obj\Debug\VisualAppJSon.csproj.CoreCompileInputs.cache
+C:\Users\kurdi\Desktop\Новая папка (2)\VisualAppJSon\obj\Debug\VisualAppJSon.csproj.CopyComplete
+C:\Users\kurdi\Desktop\Новая папка (2)\VisualAppJSon\obj\Debug\VisualAppJSon.exe
+C:\Users\kurdi\Desktop\Новая папка (2)\VisualAppJSon\obj\Debug\VisualAppJSon.pdb

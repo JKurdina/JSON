@@ -20,6 +20,8 @@ int main() {
   //json.save("JSON_save.txt");
 
   json.delete_obj("a");
+  json.new_obj("b", "e", "789");
+  json.new_value("e", "567");
   json.save("JSON_save.txt");
   
   

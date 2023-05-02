@@ -1,0 +1,2 @@
+C:\Users\kurdi\Desktop\JSON\JSON_Lab\x64\Debug\JSON_Lab.vcxproj.AssemblyReference.cache
+C:\Users\kurdi\Desktop\Новая папка (2)\JSON_Lab\x64\Debug\JSON_Lab.vcxproj.AssemblyReference.cache
