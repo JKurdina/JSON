@@ -2,6 +2,9 @@
 #include "Value.h";
 #include <stack>
 
+#include <msclr\marshal_cppstd.h>
+
+
 class JSon {
 public:
   ListValue* root;
@@ -26,3 +29,23 @@ public:
   void delete_obj_list(ListValue* curr);
   void new_obj(string key_up, string key, string value);
 };
+
+
+namespace JSonLib
+{
+  public ref class JSonNet {
+    JSon* js;
+
+  public:
+    JSonNet() {
+      js = new JSon;
+    }
+
+    void load(System::String^ filename) {
+      //   js->load(filename);
+      string str_fn = msclr::interop::marshal_as<std::string>(filename);
+      js->load(str_fn);
+
+    }
+  };
+}

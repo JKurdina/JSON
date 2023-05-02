@@ -2,7 +2,7 @@
 #include <iostream>
 #include <list>
 #include <stack>
-#include "List.h"
+//#include "List.h"
 
 using namespace std;
 
