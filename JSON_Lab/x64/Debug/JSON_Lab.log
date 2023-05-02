@@ -1,10 +1,10 @@
 ﻿  JSON.cpp
-C:\Users\kurdi\Desktop\JSON\JSON_Lab\JSON.h(2,10): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
+C:\Users\kurdi\Desktop\Новая папка (2)\JSON_Lab\JSON.h(2,10): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
   List.cpp
   main.cpp
-C:\Users\kurdi\Desktop\JSON\JSON_Lab\JSON.h(2,10): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
+C:\Users\kurdi\Desktop\Новая папка (2)\JSON_Lab\JSON.h(2,10): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
   Value.cpp
   .NETFramework,Version=v4.7.2.AssemblyAttributes.cpp
   Создание кода...
   JSON.obj : обнаружен модуль MSIL; для MSIL последовательная компоновка отключена; выполняется полная компоновка
-  JSON_Lab.vcxproj -> C:\Users\kurdi\Desktop\JSON\x64\Debug\JSON_Lab.dll
+  JSON_Lab.vcxproj -> C:\Users\kurdi\Desktop\Новая папка (2)\x64\Debug\JSON_Lab.dll
