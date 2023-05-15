@@ -321,6 +321,7 @@ void JSon::save(string filename)
   str = check_list(curr, level);
 
   file2 << str;
+
 };
 
 string JSon::check_list(ListValue* curr, int level)
@@ -469,17 +470,17 @@ ListValue* JSon::find_key(ListValue* curr, string key, ListValue* find)
 };
 
 
-void JSon::new_value(string key, string value)
+void JSon::new_value(string value)
 {
-  if (key == "") throw "It is list";
+  if (current->get_key() == "") throw "It is list";
 
-  ListValue* tmp = find_key(root, key, root);
-  if (tmp->get_key() == "0") throw "Does not exist this key";
+  //ListValue* tmp = find_key(root, key, root);
+  //if (tmp->get_key() == "0") throw "Does not exist this key";
 
-  tmp->value = value;
+  current->value = value;
 };
 
-void JSon::delete_obj(string key)
+void JSon::delete_obj(string key, string value)
 {
   ListValue* tmp = find_key(root, key, root);
   if (tmp->get_key() == "0") throw "Does not exist this key";
@@ -488,10 +489,13 @@ void JSon::delete_obj(string key)
   {
     delete_obj_list(tmp);
   }
-
+  
   ListValue* tmp_old = tmp->get_parent();
   tmp_old->list.delete_elem(tmp);
-
+  
+  /*stack_js.pop();
+  if (!stack_js.empty()) current = stack_js.top();
+  else current = root;*/
 };
 
 void JSon::delete_obj_list(ListValue* curr)
@@ -510,15 +514,16 @@ void JSon::delete_obj_list(ListValue* curr)
 }
 
 
-void JSon::new_obj(string key_up, string key, string value)
+void JSon::new_obj(string key, string value)
 {
-  ListValue* tmp = find_key(root, key_up, root);
+  //ListValue* tmp = find_key(root, key_up, root);
   
-  ListValue* tmp_test = find_key(root, key, root);
-  if (tmp_test->get_key() != "0") throw "Object with this key already exist";
+  //ListValue* tmp_test = find_key(root, key, root);
+  //if (tmp_test->get_key() != "0") throw "Object with this key already exist";
 
   ListValue* new_tmp = new ListValue();
   new_tmp->key = key;
   new_tmp->value = value;
-  tmp->list.addLast(new_tmp);
+  
+  current->list.addLast(new_tmp);
 }

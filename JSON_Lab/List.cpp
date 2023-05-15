@@ -107,6 +107,6 @@ void List::delete_elem(ListValue* tmp)
 
   t_prev->next = t_next;
 
-  delete t->listvalue;
+  //delete t->listvalue;
   delete t;
 }

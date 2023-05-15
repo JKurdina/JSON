@@ -9,3 +9,13 @@ Class JSonLib.JSonNet: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Methods:
     load(String): PrivateScope, Public, HideBySig
+    save(String): PrivateScope, Public, HideBySig
+    get_key_value(): PrivateScope, Public, HideBySig
+    MarshalString(String, basic_string<char\,std::char_traits<char>\,std::allocator<char> >* IsImplicitlyDereferenced): PrivateScope, Public, HideBySig
+    down(): PrivateScope, Public, HideBySig
+    next(): PrivateScope, Public, HideBySig
+    back(): PrivateScope, Public, HideBySig
+    prev(): PrivateScope, Public, HideBySig
+    new_value(String): PrivateScope, Public, HideBySig
+    new_obj(String, String): PrivateScope, Public, HideBySig
+    delete_obj(String, String): PrivateScope, Public, HideBySig

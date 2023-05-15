@@ -3,11 +3,14 @@
 #include <iostream>
 
 int main() {
-  JSon json;
+  /*JSon json;
   json.load("JSON_load.txt");
   json.save("JSON_save.txt");
   
-  /*json.down();
+  json.down();
+  json.delete_obj();
+  
+  json.down();
   json.prev();
   json.next();
   
@@ -19,10 +22,10 @@ int main() {
 
   //json.save("JSON_save.txt");
 
-  json.delete_obj("a");
+  /*json.delete_obj("a");
   json.new_obj("b", "e", "789");
   json.new_value("e", "567");
-  json.save("JSON_save.txt");
+  json.save("JSON_save.txt");*/
   
   
 
